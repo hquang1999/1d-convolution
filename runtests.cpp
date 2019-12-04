@@ -7,8 +7,9 @@ template<typename T>
 std::vector<T> xcorr(const std::vector<T>& a, const std::vector<T>& b)
 {
 	// --- ADDS ZEROES ---
-	std::vector<int> NewA(b.size() * 2 + a.size() - 2);
-        size_t j = (b.size() - 1);
+	std::vector<int> NewA((((b.size() * 2) + a.size()) - 2)); // size for additional zeroes
+	
+	size_t j = (b.size() - 1); // determines how where to start copying
  
         for(size_t n = 0; a.size() != n; n++, j++)
         {
@@ -17,15 +18,15 @@ std::vector<T> xcorr(const std::vector<T>& a, const std::vector<T>& b)
 	
 	// --- CROSS CORRELATION ---
 	std::vector<int> results(a.size() + b.size() - 1);	
-	auto z = NewA.size() - b.size() + 1; //end size
+	auto z = NewA.size() - b.size() + 1; // end size
 	
-	for (size_t n = 0; n != z; n++)
+	for (size_t n = 0; n != z; n++) // moves vector A
 	{
 		int total = 0;
 		size_t i = 0;
 		size_t begin = n;
 		
-		while (i != b.size()) // goes through the multiplication
+		while (i != b.size()) // multiply vector B with vector A
 		{
 			total += (NewA[begin] * b[i]);
 			i++;
@@ -54,8 +55,9 @@ std::vector<T> conv(const std::vector<T>& a, const std::vector<T>& b)
 	}
 	
 	// --- ADDS ZEROES ---
-	std::vector<int> NewA(b.size() * 2 + a.size() - 2);
-        size_t j = (b.size() - 1);
+	std::vector<int> NewA((((b.size() * 2) + a.size()) - 2)); // size for additional zeroes
+        
+	size_t j = (b.size() - 1); // determines where to start copying
  
         for(size_t n = 0; a.size() != n; n++, j++)
         {
@@ -64,15 +66,15 @@ std::vector<T> conv(const std::vector<T>& a, const std::vector<T>& b)
 	
 	// --- CONVULUTION ---
 	std::vector<int> results(a.size() + b.size() - 1);	
-	auto z = NewA.size() - b.size() + 1; //end size
+	auto z = NewA.size() - b.size() + 1; // end size
 	
-	for (size_t n = 0; n != z; n++)
+	for (size_t n = 0; n != z; n++) // moves Vector A
 	{
 		int total = 0;
 		size_t i = 0;
 		size_t begin = n;
 		
-		while (i != rev.size())
+		while (i != rev.size()) // multiply reversed vector w/ Vector A
 		{
 			total += (NewA[begin] * rev[i]);
 			i++;
